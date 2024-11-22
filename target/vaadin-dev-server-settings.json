@@ -1,0 +1,17 @@
+{
+  "frontendFolder": "C:/SoftwareDevelopment/Projects/retirementdrawdown/src/main/frontend",
+  "themeFolder": "themes",
+  "themeResourceFolder": "C:/SoftwareDevelopment/Projects/retirementdrawdown/src/main/frontend/generated/jar-resources",
+  "staticOutput": "C:/SoftwareDevelopment/Projects/retirementdrawdown/target/classes/META-INF/VAADIN/webapp/VAADIN/static",
+  "generatedFolder": "generated",
+  "statsOutput": "C:\\SoftwareDevelopment\\Projects\\retirementdrawdown\\target\\classes\\META-INF\\VAADIN\\config",
+  "frontendBundleOutput": "C:\\SoftwareDevelopment\\Projects\\retirementdrawdown\\target\\classes\\META-INF\\VAADIN\\webapp",
+  "devBundleOutput": "C:/SoftwareDevelopment/Projects/retirementdrawdown/target/dev-bundle/webapp",
+  "devBundleStatsOutput": "C:/SoftwareDevelopment/Projects/retirementdrawdown/target/dev-bundle/config",
+  "jarResourcesFolder": "C:/SoftwareDevelopment/Projects/retirementdrawdown/src/main/frontend/generated/jar-resources",
+  "themeName": "drawdowncalculator",
+  "clientServiceWorkerSource": "C:\\SoftwareDevelopment\\Projects\\retirementdrawdown\\target\\sw.ts",
+  "pwaEnabled": false,
+  "offlineEnabled": false,
+  "offlinePath": "'offline.html'"
+}

@@ -1,0 +1,18 @@
+{
+  "productionMode": false,
+  "eagerServerLoad": false,
+  "npmFolder": "C:\\SoftwareDevelopment\\Projects\\retirementdrawdown",
+  "node.version": "v20.14.0",
+  "node.download.root": "https://nodejs.org/dist/",
+  "frontendFolder": "C:\\SoftwareDevelopment\\Projects\\retirementdrawdown\\src\\main\\frontend",
+  "connect.javaSourceFolder": "C:\\SoftwareDevelopment\\Projects\\retirementdrawdown\\src\\main\\java",
+  "javaResourceFolder": "C:\\SoftwareDevelopment\\Projects\\retirementdrawdown\\src\\main\\resources",
+  "connect.applicationProperties": "C:\\SoftwareDevelopment\\Projects\\retirementdrawdown\\src\\main\\resources\\application.properties",
+  "connect.openApiFile": "C:\\SoftwareDevelopment\\Projects\\retirementdrawdown\\target\\generated-resources\\openapi.json",
+  "project.frontend.generated": "C:\\SoftwareDevelopment\\Projects\\retirementdrawdown\\src\\main\\frontend\\generated",
+  "pnpm.enable": false,
+  "bun.enable": false,
+  "require.home.node": false,
+  "build.folder": "target",
+  "react.enable": true
+}

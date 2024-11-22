@@ -17,15 +17,19 @@ package com.reedmanit.retirementdrawdown.views;
 
 import com.reedmanit.retirementdrawdown.model.DrawDownParameters;
 import com.reedmanit.retirementdrawdown.service.DrawDownService;
-import com.vaadin.flow.component.html.H1;
+import com.vaadin.flow.component.UI;
 import com.vaadin.flow.component.orderedlayout.VerticalLayout;
+import com.vaadin.flow.router.PageTitle;
 import com.vaadin.flow.router.Route;
+import com.vaadin.flow.server.VaadinSession;
 
 /**
  *
  * @author preed
  */
-@Route
+//@PermitAll
+//@PageTitle(value = "MainView")
+//@Route (value = "MainView")
 public class MainView extends VerticalLayout {
     
     private ParameterView parameterView;
@@ -34,11 +38,13 @@ public class MainView extends VerticalLayout {
     private DrawdownGridView gridView;
     private DrawDownService drawnDownService;
     private DrawDownParameters drawDownParameters;
-    
+
+   // private final SecurityService securityService;
+
     public MainView() {
 
 
-
+       // this.securityService = securityService;
         drawDownParameters = new DrawDownParameters();
         this.setJustifyContentMode(JustifyContentMode.CENTER);
 
@@ -64,6 +70,11 @@ public class MainView extends VerticalLayout {
             drawnDownService = new DrawDownService(drawDownParameters);
             gridView.getTheGrid().setItems(drawnDownService.getListOfDrawDowns());
 
+        });
+
+        buttonView.getLogoutBTN().addClickListener(e -> {
+            UI.getCurrent().getPage().setLocation("login");
+            VaadinSession.getCurrent().close();
         });
 
 

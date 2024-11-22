@@ -1,6 +1,7 @@
 import '@vaadin/polymer-legacy-adapter/style-modules.js';
-import '@vaadin/horizontal-layout/theme/lumo/vaadin-horizontal-layout.js';
+import '@vaadin/login/theme/lumo/vaadin-login-overlay.js';
 import '@vaadin/vertical-layout/theme/lumo/vaadin-vertical-layout.js';
+import '@vaadin/horizontal-layout/theme/lumo/vaadin-horizontal-layout.js';
 import '@vaadin/field-highlighter/theme/lumo/vaadin-field-highlighter.js';
 import '@vaadin/common-frontend/ConnectionIndicator.js';
 import '@vaadin/accordion/theme/lumo/vaadin-accordion.js';
@@ -54,7 +55,6 @@ import '@vaadin/icons/vaadin-iconset.js';
 import '@vaadin/list-box/theme/lumo/vaadin-list-box.js';
 import '@vaadin/item/theme/lumo/vaadin-item.js';
 import '@vaadin/login/theme/lumo/vaadin-login-form.js';
-import '@vaadin/login/theme/lumo/vaadin-login-overlay.js';
 import '@vaadin/map/theme/lumo/vaadin-map.js';
 import 'Frontend/generated/jar-resources/vaadin-map/mapConnector.js';
 import 'Frontend/generated/jar-resources/menubarConnector.js';
