@@ -2,7 +2,11 @@ package com.reedmanit.retirementdrawdown.views;
 
 import com.reedmanit.retirementdrawdown.model.AnnualDrawdown;
 import com.vaadin.flow.component.grid.Grid;
+import com.vaadin.flow.component.grid.GridVariant;
 import com.vaadin.flow.component.orderedlayout.VerticalLayout;
+import com.vaadin.flow.data.renderer.NumberRenderer;
+
+import java.text.NumberFormat;
 import java.util.List;
 
 public class DrawdownGridView {
@@ -16,13 +20,15 @@ public class DrawdownGridView {
     }
 
     private void drawGrid() {
-       // getTheGrid().setSizeFull();
+
         getTheGrid().setSelectionMode(Grid.SelectionMode.SINGLE);
-        getTheGrid().addColumn(AnnualDrawdown::getYear).setHeader("Year").setAutoWidth(true);
-        getTheGrid().addColumn(AnnualDrawdown::getOpeningBalance).setHeader("Opening balance").setAutoWidth(true);
-        getTheGrid().addColumn(AnnualDrawdown::getWithdrawal).setHeader("Withdrawal").setAutoWidth(true);
-        getTheGrid().addColumn(AnnualDrawdown::getIncome).setHeader("Income").setAutoWidth(true);
-        getTheGrid().addColumn(AnnualDrawdown::getClosingBalance).setHeader("Closing balance").setAutoWidth(true);
+        getTheGrid().addColumn(AnnualDrawdown::getYear).setHeader("Year").setAutoWidth(true).setSortable(true);
+        getTheGrid().addColumn(new NumberRenderer<>(AnnualDrawdown::getOpeningBalance, NumberFormat.getCurrencyInstance())).setHeader("Opening balance").setAutoWidth(true);
+
+        getTheGrid().addColumn(new NumberRenderer<>(AnnualDrawdown::getWithdrawal, NumberFormat.getCurrencyInstance())).setHeader("Withdrawal").setAutoWidth(true);
+        getTheGrid().addColumn(new NumberRenderer<>(AnnualDrawdown::getIncome, NumberFormat.getCurrencyInstance())).setHeader("Income").setAutoWidth(true);
+        getTheGrid().addColumn(new NumberRenderer<>(AnnualDrawdown::getClosingBalance, NumberFormat.getCurrencyInstance())).setHeader("Closing balance").setAutoWidth(true);
+        getTheGrid().addThemeVariants(GridVariant.LUMO_ROW_STRIPES);
 
     }
 

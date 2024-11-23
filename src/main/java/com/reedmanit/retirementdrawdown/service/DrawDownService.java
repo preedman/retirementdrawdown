@@ -56,6 +56,10 @@ public class DrawDownService {
 
     }
 
+    public Integer getNumberOfYears() {
+        return listOfDrawDowns.size();
+    }
+
     private AnnualDrawdown createCopy(AnnualDrawdown annualDrawdown) {
         AnnualDrawdown copy = new AnnualDrawdown();
         copy.setOpeningBalance(annualDrawdown.getClosingBalance());

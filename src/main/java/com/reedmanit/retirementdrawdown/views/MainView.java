@@ -18,6 +18,7 @@ package com.reedmanit.retirementdrawdown.views;
 import com.reedmanit.retirementdrawdown.model.DrawDownParameters;
 import com.reedmanit.retirementdrawdown.service.DrawDownService;
 import com.vaadin.flow.component.UI;
+import com.vaadin.flow.component.formlayout.FormLayout;
 import com.vaadin.flow.component.orderedlayout.VerticalLayout;
 import com.vaadin.flow.router.PageTitle;
 import com.vaadin.flow.router.Route;
@@ -61,6 +62,9 @@ public class MainView extends VerticalLayout {
         this.add(gridView.getTheGrid());
 
 
+       // this.setFlexGrow();
+
+
         buttonView.getCalculateBTN().addClickListener(e -> {
             System.out.println("Button clicked");
             drawDownParameters.setStartingBalance(parameterView.getStartBalanceNF());
@@ -69,6 +73,7 @@ public class MainView extends VerticalLayout {
             drawDownParameters.setInflationRate(parameterView.getInflationRateNF());
             drawnDownService = new DrawDownService(drawDownParameters);
             gridView.getTheGrid().setItems(drawnDownService.getListOfDrawDowns());
+            buttonView.setLabel("Number of Years " + drawnDownService.getNumberOfYears().toString());
 
         });
 
