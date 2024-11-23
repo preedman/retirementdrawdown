@@ -3,27 +3,39 @@ package com.reedmanit.retirementdrawdown.model;
 //import jakarta.persistence.Entity;
 
 
+import com.google.common.hash.Hashing;
 import org.apache.commons.codec.digest.DigestUtils;
 import org.apache.commons.lang3.RandomStringUtils;
 
+import java.nio.charset.StandardCharsets;
 
 
 public class User {
 
     private String username;
-    private String passwordSalt;
+
     private String passwordHash;
     private Role role;
 
     public User(String username, String password, Role role) {
         this.setUsername(username);
         this.setRole(role);
-        this.setPasswordSalt(RandomStringUtils.random(32));
-        this.setPasswordHash(DigestUtils.sha1Hex(password + getPasswordSalt()));
+
+        this.setPasswordHash(password);
     }
 
     public boolean checkPassword(String password) {
-        return this.getPasswordHash().equals(DigestUtils.sha1Hex(password + getPasswordSalt()));
+
+        String sha256hex = Hashing.sha256()
+                .hashString(password, StandardCharsets.UTF_8)
+                .toString();
+        if (sha256hex.equals(this.passwordHash)) {
+            return true;
+        } else {
+            return false;
+        }
+
+
     }
 
     public String getUsername() {
@@ -34,13 +46,6 @@ public class User {
         this.username = username;
     }
 
-    public String getPasswordSalt() {
-        return passwordSalt;
-    }
-
-    public void setPasswordSalt(String passwordSalt) {
-        this.passwordSalt = passwordSalt;
-    }
 
     public String getPasswordHash() {
         return passwordHash;

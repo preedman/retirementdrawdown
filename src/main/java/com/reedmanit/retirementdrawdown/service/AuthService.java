@@ -7,7 +7,7 @@ import org.springframework.stereotype.Service;
 @Service
 public class AuthService {
 
-    private UserRepository userRepository;
+  //  private UserRepository userRepository;
 
     public AuthService() {
 

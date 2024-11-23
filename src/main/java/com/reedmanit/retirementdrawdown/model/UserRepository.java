@@ -8,18 +8,23 @@ public class UserRepository {
 
     private static List<User> users;
 
+
     public UserRepository() {
-        setUp();
+
+
     }
 
-    public void setUp() {
-        users = new ArrayList<User>();
-
-        User paul = new User("paul", "pulsar", Role.USER);
-        users.add(paul);
-        User jenny = new User("jenny", "pulsar", Role.USER);
-        users.add(jenny);
+    public static void setUp() {
+        users = new ArrayList<>();
     }
+
+    public static void addUser(User aUser) {
+
+
+        users.add(aUser);
+
+    }
+
 
     public static User findUser(String username) {
         Iterator<User> it = users.iterator();
@@ -40,7 +45,7 @@ public class UserRepository {
         }
     }
 
-    public List<User> getUsers() {
+    public static List<User> getUsers() {
         return users;
     }
 
