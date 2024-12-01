@@ -2,7 +2,9 @@ package com.reedmanit.retirementdrawdown.security;
 
 import com.reedmanit.retirementdrawdown.model.UserRepository;
 import com.reedmanit.retirementdrawdown.service.AuthService;
+import com.reedmanit.retirementdrawdown.views.MainAppView;
 import com.reedmanit.retirementdrawdown.views.MainView;
+import com.reedmanit.retirementdrawdown.views.ParameterFormView;
 import com.vaadin.flow.component.UI;
 import com.vaadin.flow.component.html.Paragraph;
 import com.vaadin.flow.component.login.LoginOverlay;
@@ -35,10 +37,19 @@ public class LoginScreen extends LoginOverlay
             String user = event.getUsername();
             String password = event.getPassword();
             if (authService.Authenticate(user, password)) {
-                RouteConfiguration.forSessionScope().setRoute(
-                        "user", MainView.class
-                );
-                UI.getCurrent().navigate(MainView.class);
+
+                RouteConfiguration configuration =
+                        RouteConfiguration.forSessionScope();
+                configuration.setRoute("user", MainAppView.class);
+                configuration.setRoute("admin", ParameterFormView.class);
+
+
+               // RouteConfiguration.forSessionScope().setRoute(
+               //         "user", MainAppView.class
+                 //       "user", MainAppView.class, ParameterFormView.class
+
+                //);
+                UI.getCurrent().navigate(MainAppView.class);
             } else {
                 this.setError(true);
             }

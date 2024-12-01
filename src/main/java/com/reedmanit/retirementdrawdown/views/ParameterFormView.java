@@ -15,39 +15,61 @@
  */
 package com.reedmanit.retirementdrawdown.views;
 
+import com.reedmanit.retirementdrawdown.model.DrawDownParameters;
+import com.vaadin.flow.component.button.Button;
+import com.vaadin.flow.component.formlayout.FormLayout;
 import com.vaadin.flow.component.html.Span;
-import com.vaadin.flow.component.orderedlayout.FlexLayout;
 import com.vaadin.flow.component.orderedlayout.HorizontalLayout;
-import com.vaadin.flow.component.orderedlayout.VerticalLayout;
 import com.vaadin.flow.component.textfield.NumberField;
-import com.vaadin.flow.dom.Style;
-import com.vaadin.flow.theme.lumo.LumoUtility;
+import com.vaadin.flow.router.Route;
+import com.vaadin.flow.router.RouterLayout;
 
 /**
  *
  * @author preed
  */
-public class ParameterView extends HorizontalLayout {
-    
+//@Route(value = "")
+public class ParameterFormView extends FormLayout implements RouterLayout {
+
     private NumberField startBalanceNF;  // start balance
-    
+
     private NumberField percentageReturnNF;  // % returns
-    
+
     private NumberField yearlyWithdrawalsNF; // how much withdraw
-    
+
     private NumberField inflationRateNF; // % inflation rate
-    
-    public ParameterView() {
+
+    private Button saveButton;
+
+    private Button cancelButton;
+
+    private DrawDownParameters drawDownParameters;
+
+    public ParameterFormView() {
         
         setUpParameterView();
-        
-       // this.getStyle().set("border", "1px solid");
-     //   getElement().getStyle().set("height", "100%");
-        //this.setJustifyContentMode(JustifyContentMode.CENTER);
-        this.setSizeUndefined();
-       // this.addClassName(LumoUtility.FlexDirection.Breakpoint.Medium.ROW);
+        drawDownParameters = new DrawDownParameters();
 
-        this.setFlexShrink(0,startBalanceNF, percentageReturnNF, yearlyWithdrawalsNF, inflationRateNF);
+
+        saveButton.addClickListener(event -> {
+                 fillParameters();
+                 getUI().ifPresent(ui -> ui.navigate(MainAppView.class).ifPresent(
+
+                app -> app.saveData(drawDownParameters)));});
+
+        // saveButton.addClickListener(event -> {getUI().ifPresent(ui -> ui.navigate(MainAppView.class).ifPresent(app -> app.saveData(drawDownParameters)));});
+
+
+        
+      //  this.getStyle().set("border", "1px solid");
+      //  this.setJustifyContentMode(JustifyContentMode.CENTER);
+        
+    }
+    private void fillParameters() {
+        drawDownParameters.setStartingBalance(startBalanceNF);
+        drawDownParameters.setPercentageReturn(percentageReturnNF);
+        drawDownParameters.setYearlyWithdrawals(yearlyWithdrawalsNF);
+        drawDownParameters.setInflationRate(inflationRateNF);
 
     }
     
@@ -61,7 +83,7 @@ public class ParameterView extends HorizontalLayout {
         getStartBalanceNF().setErrorMessage("Invalid starting Balance");
         getStartBalanceNF().setRequiredIndicatorVisible(true);
         getStartBalanceNF().setClearButtonVisible(true);
-        getStartBalanceNF().setSizeUndefined();
+
         getStartBalanceNF().setPrefixComponent(new Span("$"));
         this.add(getStartBalanceNF());
         
@@ -73,7 +95,6 @@ public class ParameterView extends HorizontalLayout {
         getPercentageReturnNF().setErrorMessage("Invalid percentage Return");
         getPercentageReturnNF().setLabel("Annual % return");
         getPercentageReturnNF().setClearButtonVisible(true);
-        getPercentageReturnNF().setSizeUndefined();
 
         getPercentageReturnNF().setSuffixComponent(new Span("%"));
         this.add(getPercentageReturnNF());
@@ -87,7 +108,6 @@ public class ParameterView extends HorizontalLayout {
         getYearlyWithdrawalsNF().setErrorMessage("Invalid yearly Withdrawal");
         getYearlyWithdrawalsNF().setClearButtonVisible(true);
         getYearlyWithdrawalsNF().setPrefixComponent(new Span("$"));
-        getYearlyWithdrawalsNF().setSizeUndefined();
         this.add(getYearlyWithdrawalsNF());
         
         setInflationRateNF(new NumberField());
@@ -99,8 +119,18 @@ public class ParameterView extends HorizontalLayout {
         getInflationRateNF().setErrorMessage("Invalid inflation Rate");
         getInflationRateNF().setClearButtonVisible(true);
         getInflationRateNF().setSuffixComponent(new Span("%"));
-        getInflationRateNF().setSizeUndefined();
         this.add(getInflationRateNF());
+
+        saveButton = new Button("Save");
+        cancelButton = new Button("Cancel");
+
+        this.add(saveButton);
+        this.add(cancelButton);
+
+        this.setResponsiveSteps(
+                // Use one column by default
+                new ResponsiveStep("0", 1));
+
         
         
         
