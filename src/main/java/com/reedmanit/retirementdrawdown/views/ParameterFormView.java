@@ -59,6 +59,9 @@ public class ParameterFormView extends FormLayout implements RouterLayout {
 
         // saveButton.addClickListener(event -> {getUI().ifPresent(ui -> ui.navigate(MainAppView.class).ifPresent(app -> app.saveData(drawDownParameters)));});
 
+        cancelButton.addClickListener(event -> {getUI().ifPresent(ui -> ui.navigate(MainAppView.class).ifPresent(
+
+                app -> app.cancel()));});
 
         
       //  this.getStyle().set("border", "1px solid");
@@ -97,6 +100,7 @@ public class ParameterFormView extends FormLayout implements RouterLayout {
         getPercentageReturnNF().setClearButtonVisible(true);
 
         getPercentageReturnNF().setSuffixComponent(new Span("%"));
+        getPercentageReturnNF().setWidth("50%");
         this.add(getPercentageReturnNF());
         
         setYearlyWithdrawalsNF(new NumberField());
@@ -122,10 +126,12 @@ public class ParameterFormView extends FormLayout implements RouterLayout {
         this.add(getInflationRateNF());
 
         saveButton = new Button("Save");
+        saveButton.setWidth("50%");
         cancelButton = new Button("Cancel");
+        cancelButton.setWidth("50%");
 
-        this.add(saveButton);
-        this.add(cancelButton);
+        this.add(saveButton, cancelButton);
+       // this.add(cancelButton);
 
         this.setResponsiveSteps(
                 // Use one column by default

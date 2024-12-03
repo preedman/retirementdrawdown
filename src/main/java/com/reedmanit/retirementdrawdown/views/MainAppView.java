@@ -19,15 +19,15 @@ import com.vaadin.flow.server.VaadinSession;
 import com.vaadin.flow.theme.lumo.LumoUtility;
 
 
-public class MainAppView extends AppLayout
-{
+public class MainAppView extends AppLayout {
     private Button parametersBTN;
     private Button logoutBTN;
     private DrawDownService service;
     private DrawdownGridView gridView;
+    private DrawDownParameters parameters;
 
-    public MainAppView () {
-        H1 title = new H1("MyApp");
+    public MainAppView() {
+        H1 title = new H1("Retirement Drawdown");
         title.getStyle().set("font-size", "var(--lumo-font-size-l)")
                 .set("margin", "var(--lumo-space-m)");
         HorizontalLayout navigation = getNavigation();
@@ -38,24 +38,9 @@ public class MainAppView extends AppLayout
         scroller.setScrollDirection(Scroller.ScrollDirection.BOTH);
         //scroller.setClassName(LumoUtility.Padding.SMALL);
 
-     //   AppGridView myGridView = new AppGridView();
+        //   AppGridView myGridView = new AppGridView();
 
-        DrawDownParameters parameters = new DrawDownParameters();
-
-        NumberField startBalance = new NumberField("Start Balance");
-        startBalance.setValue(0.0);
-        NumberField inflationRate = new NumberField("Inflation Rate");
-        inflationRate.setValue(0.03);
-        NumberField percentageReturn = new NumberField("Percentage Return");
-        percentageReturn.setValue(0.05);
-        NumberField yearlyWithdraw = new NumberField("Yearly Withdraw");
-        yearlyWithdraw.setValue(0.0);
-
-
-        parameters.setStartingBalance(startBalance);
-        parameters.setInflationRate(inflationRate);
-        parameters.setPercentageReturn(percentageReturn);
-        parameters.setYearlyWithdrawals(yearlyWithdraw);
+        initaliseParameters();
 
         service = new DrawDownService(parameters);
 
@@ -64,20 +49,18 @@ public class MainAppView extends AppLayout
         gridView.setTheGrid(service.getListOfDrawDowns());
 
 
-
-
         this.setContent(gridView.getTheGrid());
 
         this.addToDrawer(scroller);
 
 
-      //  this.setContent(myGridView);
+        //  this.setContent(myGridView);
         getElement().getStyle().set("height", "100%");
-       // gridView.getTheGrid().setHeight("100%");
-       // gridView.getTheGrid().addThemeVariants(GridVariant.LUMO_NO_BORDER);
+        // gridView.getTheGrid().setHeight("100%");
+        // gridView.getTheGrid().addThemeVariants(GridVariant.LUMO_NO_BORDER);
 
         parametersBTN.addClickListener(event -> {
-          //  RouteConfiguration.forSessionScope().setRoute("admin", ParameterFormView.class);
+            //  RouteConfiguration.forSessionScope().setRoute("admin", ParameterFormView.class);
             UI.getCurrent().navigate(ParameterFormView.class);
         });
         logoutBTN.addClickListener(e -> {
@@ -95,6 +78,37 @@ public class MainAppView extends AppLayout
         this.setContent(gridView.getTheGrid());
     }
 
+    public void cancel() { // called by the form
+        initaliseParameters();
+        service = new DrawDownService(parameters);
+
+
+        gridView = new DrawdownGridView();
+        gridView.setTheGrid(service.getListOfDrawDowns());
+
+
+        this.setContent(gridView.getTheGrid());
+    }
+
+    private void initaliseParameters() {
+        parameters = new DrawDownParameters();
+
+        NumberField startBalance = new NumberField("Start Balance");
+        startBalance.setValue(0.0);
+        NumberField inflationRate = new NumberField("Inflation Rate");
+        inflationRate.setValue(0.03);
+        NumberField percentageReturn = new NumberField("Percentage Return");
+        percentageReturn.setValue(0.05);
+        NumberField yearlyWithdraw = new NumberField("Yearly Withdraw");
+        yearlyWithdraw.setValue(0.0);
+
+
+        parameters.setStartingBalance(startBalance);
+        parameters.setInflationRate(inflationRate);
+        parameters.setPercentageReturn(percentageReturn);
+        parameters.setYearlyWithdrawals(yearlyWithdraw);
+    }
+
     private HorizontalLayout getNavigation() {
         HorizontalLayout navigation = new HorizontalLayout();
         navigation.addClassNames(LumoUtility.JustifyContent.CENTER,
@@ -103,11 +117,10 @@ public class MainAppView extends AppLayout
         parametersBTN = new Button("Parameters");
         logoutBTN = new Button("Logout");
         navigation.add(parametersBTN, logoutBTN);
-       // navigation.add(createLink("Parameters"), createLink("Orders"),
-       //         createLink("Customers"), createLink("Products"));
+        // navigation.add(createLink("Parameters"), createLink("Orders"),
+        //         createLink("Customers"), createLink("Products"));
         return navigation;
     }
-
 
 
     private RouterLink createLink(String viewName) {
@@ -128,5 +141,5 @@ public class MainAppView extends AppLayout
 
         return link;
     }
-    
+
 }
