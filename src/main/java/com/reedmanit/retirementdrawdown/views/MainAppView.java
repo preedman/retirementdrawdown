@@ -50,12 +50,14 @@ public class MainAppView extends AppLayout {
 
 
         this.setContent(gridView.getTheGrid());
+        getElement().getStyle().set("height", "100%");
+        gridView.getTheGrid().setHeight("100%");
 
         this.addToDrawer(scroller);
 
 
         //  this.setContent(myGridView);
-        getElement().getStyle().set("height", "100%");
+
         // gridView.getTheGrid().setHeight("100%");
         // gridView.getTheGrid().addThemeVariants(GridVariant.LUMO_NO_BORDER);
 
