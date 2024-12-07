@@ -7,6 +7,7 @@ import com.reedmanit.retirementdrawdown.service.DrawDownService;
 import com.vaadin.flow.component.UI;
 import com.vaadin.flow.component.applayout.AppLayout;
 import com.vaadin.flow.component.button.Button;
+import com.vaadin.flow.component.button.ButtonVariant;
 import com.vaadin.flow.component.details.Details;
 import com.vaadin.flow.component.details.DetailsVariant;
 import com.vaadin.flow.component.grid.Grid;
@@ -42,13 +43,13 @@ public class MainAppView extends AppLayout {
 
 
     public MainAppView() {
-        H1 title = new H1("Retirement Drawdown");
+       // H1 title = new H1("Retirement Drawdown");
         initaliseParameters();
-        title.getStyle().set("font-size", "var(--lumo-font-size-l)")
-                .set("margin", "var(--lumo-space-m)");
+       // title.getStyle().set("font-size", "var(--lumo-font-size-l)")
+        //       .set("margin", "var(--lumo-space-m)");
         HorizontalLayout navigation = getNavigation();
         navigation.getElement();
-        addToNavbar(title, navigation);
+        addToNavbar(navigation);
 
         Scroller scroller = new Scroller();
         scroller.setScrollDirection(Scroller.ScrollDirection.BOTH);
@@ -138,12 +139,25 @@ public class MainAppView extends AppLayout {
 
     private HorizontalLayout getNavigation() {
         navigation = new HorizontalLayout();
-        navigation.addClassNames(LumoUtility.JustifyContent.START,
-                LumoUtility.Gap.SMALL, LumoUtility.Height.SMALL,
-                LumoUtility.Width.SMALL);
+       // navigation.addClassNames(LumoUtility.JustifyContent.START,
+       //         LumoUtility.Gap.SMALL, LumoUtility.Height.SMALL,
+       //         LumoUtility.Width.SMALL);
         parametersBTN = new Button("Enter Parameters");
         showParametersBTN = new Button("Show Parameters");
         logoutBTN = new Button("Logout");
+
+       parametersBTN.addThemeVariants(ButtonVariant.LUMO_SMALL);
+        showParametersBTN.addThemeVariants(ButtonVariant.LUMO_SMALL);
+       logoutBTN.addThemeVariants(ButtonVariant.LUMO_SMALL);
+
+        parametersBTN.setSizeUndefined();
+        showParametersBTN.setSizeUndefined();
+        logoutBTN.setSizeUndefined();
+
+        Scroller scroller = new Scroller();
+        scroller.setScrollDirection(Scroller.ScrollDirection.HORIZONTAL);
+
+
        // startBalance = new Span("Start Balance");
        // startBalance.getElement().getThemeList().add("badge");
         //startBalanceInfo = new Span("Start Balance " + parameters.getStartingBalanceAsString());
@@ -152,6 +166,10 @@ public class MainAppView extends AppLayout {
       //  parametersDetails.setOpened(false);
        // parametersDetails.addThemeVariants(DetailsVariant.SMALL);
         navigation.add(parametersBTN, showParametersBTN, logoutBTN);
+
+      // navigation.setAlignSelf();
+
+        scroller.setContent(navigation);
         // navigation.add(createLink("Parameters"), createLink("Orders"),
         //         createLink("Customers"), createLink("Products"));
         return navigation;
