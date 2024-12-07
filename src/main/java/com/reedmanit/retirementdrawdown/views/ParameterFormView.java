@@ -86,8 +86,10 @@ public class ParameterFormView extends FormLayout implements RouterLayout {
         getStartBalanceNF().setErrorMessage("Invalid starting Balance");
         getStartBalanceNF().setRequiredIndicatorVisible(true);
         getStartBalanceNF().setClearButtonVisible(true);
+        getStartBalanceNF().setHelperText("Valid values between 10000 and 2000000");
 
         getStartBalanceNF().setPrefixComponent(new Span("$"));
+
         this.add(getStartBalanceNF());
         
         setPercentageReturnNF(new NumberField());
@@ -98,6 +100,7 @@ public class ParameterFormView extends FormLayout implements RouterLayout {
         getPercentageReturnNF().setErrorMessage("Invalid percentage Return");
         getPercentageReturnNF().setLabel("Annual % return");
         getPercentageReturnNF().setClearButtonVisible(true);
+        getPercentageReturnNF().setHelperText("Valid values between 1% and 20%");
 
         getPercentageReturnNF().setSuffixComponent(new Span("%"));
         getPercentageReturnNF().setWidth("50%");
@@ -112,6 +115,7 @@ public class ParameterFormView extends FormLayout implements RouterLayout {
         getYearlyWithdrawalsNF().setErrorMessage("Invalid yearly Withdrawal");
         getYearlyWithdrawalsNF().setClearButtonVisible(true);
         getYearlyWithdrawalsNF().setPrefixComponent(new Span("$"));
+        getYearlyWithdrawalsNF().setHelperText("Valid values between 500 and 1000000");
         this.add(getYearlyWithdrawalsNF());
         
         setInflationRateNF(new NumberField());
@@ -123,9 +127,10 @@ public class ParameterFormView extends FormLayout implements RouterLayout {
         getInflationRateNF().setErrorMessage("Invalid inflation Rate");
         getInflationRateNF().setClearButtonVisible(true);
         getInflationRateNF().setSuffixComponent(new Span("%"));
+        getInflationRateNF().setHelperText("Valid values between 1% and 20%");
         this.add(getInflationRateNF());
 
-        saveButton = new Button("Save");
+        saveButton = new Button("Calculate");
         saveButton.setWidth("50%");
         cancelButton = new Button("Cancel");
         cancelButton.setWidth("50%");

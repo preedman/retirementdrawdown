@@ -7,27 +7,43 @@ import com.reedmanit.retirementdrawdown.service.DrawDownService;
 import com.vaadin.flow.component.UI;
 import com.vaadin.flow.component.applayout.AppLayout;
 import com.vaadin.flow.component.button.Button;
+import com.vaadin.flow.component.details.Details;
+import com.vaadin.flow.component.details.DetailsVariant;
 import com.vaadin.flow.component.grid.Grid;
 import com.vaadin.flow.component.grid.GridVariant;
 import com.vaadin.flow.component.html.H1;
+import com.vaadin.flow.component.html.ListItem;
+import com.vaadin.flow.component.html.Span;
+import com.vaadin.flow.component.html.UnorderedList;
 import com.vaadin.flow.component.orderedlayout.HorizontalLayout;
 import com.vaadin.flow.component.orderedlayout.Scroller;
 import com.vaadin.flow.component.textfield.NumberField;
+import com.vaadin.flow.component.textfield.TextField;
+
 import com.vaadin.flow.router.RouteConfiguration;
 import com.vaadin.flow.router.RouterLink;
 import com.vaadin.flow.server.VaadinSession;
 import com.vaadin.flow.theme.lumo.LumoUtility;
 
+import java.awt.*;
+
 
 public class MainAppView extends AppLayout {
     private Button parametersBTN;
     private Button logoutBTN;
+    private Button showParametersBTN;
     private DrawDownService service;
     private DrawdownGridView gridView;
     private DrawDownParameters parameters;
+    private HorizontalLayout navigation;
+    private Details parametersDetails;
+    private Span startBalanceInfo;
+    private ParametersDialogView parametersDialogView;
+
 
     public MainAppView() {
         H1 title = new H1("Retirement Drawdown");
+        initaliseParameters();
         title.getStyle().set("font-size", "var(--lumo-font-size-l)")
                 .set("margin", "var(--lumo-space-m)");
         HorizontalLayout navigation = getNavigation();
@@ -40,7 +56,7 @@ public class MainAppView extends AppLayout {
 
         //   AppGridView myGridView = new AppGridView();
 
-        initaliseParameters();
+
 
         service = new DrawDownService(parameters);
 
@@ -69,14 +85,23 @@ public class MainAppView extends AppLayout {
             UI.getCurrent().getPage().setLocation("login");
             VaadinSession.getCurrent().close();
         });
+        showParametersBTN.addClickListener(event -> {
+            parametersDialogView = new ParametersDialogView(parameters);
+            parametersDialogView.open();
+        });
 
 
     }
 
     public void saveData(DrawDownParameters theParameters) { // called by the form
         //System.out.println("Back from form " + data);
+        parameters = theParameters;
         service = new DrawDownService(theParameters);
+
+        //parametersDetails.setContent(createParametersList(theParameters));
         gridView.setTheGrid(service.getListOfDrawDowns());
+
+
         this.setContent(gridView.getTheGrid());
     }
 
@@ -98,9 +123,9 @@ public class MainAppView extends AppLayout {
         NumberField startBalance = new NumberField("Start Balance");
         startBalance.setValue(0.0);
         NumberField inflationRate = new NumberField("Inflation Rate");
-        inflationRate.setValue(0.03);
+        inflationRate.setValue(0.0);
         NumberField percentageReturn = new NumberField("Percentage Return");
-        percentageReturn.setValue(0.05);
+        percentageReturn.setValue(0.0);
         NumberField yearlyWithdraw = new NumberField("Yearly Withdraw");
         yearlyWithdraw.setValue(0.0);
 
@@ -112,13 +137,21 @@ public class MainAppView extends AppLayout {
     }
 
     private HorizontalLayout getNavigation() {
-        HorizontalLayout navigation = new HorizontalLayout();
-        navigation.addClassNames(LumoUtility.JustifyContent.CENTER,
-                LumoUtility.Gap.SMALL, LumoUtility.Height.MEDIUM,
-                LumoUtility.Width.FULL);
-        parametersBTN = new Button("Parameters");
+        navigation = new HorizontalLayout();
+        navigation.addClassNames(LumoUtility.JustifyContent.START,
+                LumoUtility.Gap.SMALL, LumoUtility.Height.SMALL,
+                LumoUtility.Width.SMALL);
+        parametersBTN = new Button("Enter Parameters");
+        showParametersBTN = new Button("Show Parameters");
         logoutBTN = new Button("Logout");
-        navigation.add(parametersBTN, logoutBTN);
+       // startBalance = new Span("Start Balance");
+       // startBalance.getElement().getThemeList().add("badge");
+        //startBalanceInfo = new Span("Start Balance " + parameters.getStartingBalanceAsString());
+
+      //  parametersDetails = new Details("Parameters",createParametersList(parameters));
+      //  parametersDetails.setOpened(false);
+       // parametersDetails.addThemeVariants(DetailsVariant.SMALL);
+        navigation.add(parametersBTN, showParametersBTN, logoutBTN);
         // navigation.add(createLink("Parameters"), createLink("Orders"),
         //         createLink("Customers"), createLink("Products"));
         return navigation;
@@ -142,6 +175,16 @@ public class MainAppView extends AppLayout {
         link.getStyle().set("text-decoration", "none");
 
         return link;
+    }
+
+    private UnorderedList createParametersList(DrawDownParameters theParameters) {
+        UnorderedList list = new UnorderedList();
+        list.add("Starting Balance " + theParameters.getStartingBalanceAsString() + " ");
+        list.add("Inflation Rate " + theParameters.getInflationRateAsString() + " ");
+        list.add("Percentage Return " + theParameters.getPercentageReturnAsString() + " ");
+        list.add("Withdrawals " + theParameters.getYearlyWithdrawalsAsString() + " ");
+        return list;
+
     }
 
 }

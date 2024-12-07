@@ -32,6 +32,19 @@ public class DrawDownParameters {
         return startingBalance;
     }
 
+    public String getStartingBalanceAsString() {
+        return String.valueOf(startingBalance.getValue());
+    }
+    public String getInflationRateAsString() {
+        return String.valueOf(inflationRate.getValue());
+    }
+    public String getPercentageReturnAsString() {
+        return String.valueOf(percentageReturn.getValue());
+    }
+    public String getYearlyWithdrawalsAsString() {
+        return String.valueOf(yearlyWithdrawals.getValue());
+    }
+
     public void setStartingBalance(NumberField startingBalance) {
         this.startingBalance = startingBalance;
     }
