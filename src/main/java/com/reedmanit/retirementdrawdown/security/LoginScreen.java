@@ -3,15 +3,11 @@ package com.reedmanit.retirementdrawdown.security;
 import com.reedmanit.retirementdrawdown.model.UserRepository;
 import com.reedmanit.retirementdrawdown.service.AuthService;
 import com.reedmanit.retirementdrawdown.views.MainAppView;
-import com.reedmanit.retirementdrawdown.views.MainView;
 import com.reedmanit.retirementdrawdown.views.ParameterFormView;
 import com.vaadin.flow.component.UI;
 import com.vaadin.flow.component.html.Paragraph;
 import com.vaadin.flow.component.login.LoginOverlay;
 
-import com.vaadin.flow.component.login.LoginForm;
-import com.vaadin.flow.component.textfield.PasswordField;
-import com.vaadin.flow.component.textfield.TextField;
 import com.vaadin.flow.router.PageTitle;
 import com.vaadin.flow.router.Route;
 import com.vaadin.flow.router.RouteConfiguration;

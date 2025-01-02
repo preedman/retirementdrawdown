@@ -1,32 +1,23 @@
 package com.reedmanit.retirementdrawdown.views;
 
-import com.reedmanit.retirementdrawdown.model.AnnualDrawdown;
 import com.reedmanit.retirementdrawdown.model.DrawDownParameters;
-import com.reedmanit.retirementdrawdown.views.AppGridView;
 import com.reedmanit.retirementdrawdown.service.DrawDownService;
 import com.vaadin.flow.component.UI;
 import com.vaadin.flow.component.applayout.AppLayout;
 import com.vaadin.flow.component.button.Button;
 import com.vaadin.flow.component.button.ButtonVariant;
 import com.vaadin.flow.component.details.Details;
-import com.vaadin.flow.component.details.DetailsVariant;
-import com.vaadin.flow.component.grid.Grid;
-import com.vaadin.flow.component.grid.GridVariant;
-import com.vaadin.flow.component.html.H1;
-import com.vaadin.flow.component.html.ListItem;
 import com.vaadin.flow.component.html.Span;
 import com.vaadin.flow.component.html.UnorderedList;
+import com.vaadin.flow.component.notification.Notification;
+import com.vaadin.flow.component.notification.NotificationVariant;
 import com.vaadin.flow.component.orderedlayout.HorizontalLayout;
 import com.vaadin.flow.component.orderedlayout.Scroller;
 import com.vaadin.flow.component.textfield.NumberField;
-import com.vaadin.flow.component.textfield.TextField;
 
-import com.vaadin.flow.router.RouteConfiguration;
 import com.vaadin.flow.router.RouterLink;
 import com.vaadin.flow.server.VaadinSession;
 import com.vaadin.flow.theme.lumo.LumoUtility;
-
-import java.awt.*;
 
 
 public class MainAppView extends AppLayout {
@@ -102,6 +93,7 @@ public class MainAppView extends AppLayout {
         //parametersDetails.setContent(createParametersList(theParameters));
         gridView.setTheGrid(service.getListOfDrawDowns());
 
+        showNotificationYears(service.getNumberOfYears());
 
         this.setContent(gridView.getTheGrid());
     }
@@ -116,6 +108,14 @@ public class MainAppView extends AppLayout {
 
 
         this.setContent(gridView.getTheGrid());
+    }
+
+    private void showNotificationYears(Integer numberOfYears) {
+        Notification notification = Notification
+                .show("Number of Withdrawal Years " + numberOfYears, 5000, Notification.Position.BOTTOM_START);
+        notification.addThemeVariants(NotificationVariant.LUMO_PRIMARY);
+       // notification.setPosition(Notification.Position.MIDDLE);
+        //notification.setDuration(0);
     }
 
     private void initaliseParameters() {
