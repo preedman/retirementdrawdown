@@ -3,6 +3,7 @@ package com.reedmanit.retirementdrawdown.service;
 import com.reedmanit.retirementdrawdown.model.Role;
 import com.reedmanit.retirementdrawdown.model.User;
 import com.reedmanit.retirementdrawdown.model.UserRepository;
+import com.reedmanit.retirementdrawdown.model.Version;
 import com.vaadin.flow.server.ServiceInitEvent;
 import org.springframework.context.event.EventListener;
 import org.springframework.core.io.ClassPathResource;
@@ -18,6 +19,7 @@ public class StartUp {
 
 
     private User user;
+    private Version version;
 
 
     @EventListener
@@ -44,21 +46,26 @@ public class StartUp {
         Properties props = PropertiesLoaderUtils.loadProperties(resource);
         String userName=props.getProperty("userPaul");
         String password=props.getProperty("passwordPaul");
-        System.out.println("User Name: "+userName);
+
         user = new User(userName, password, Role.USER );
         UserRepository.addUser(user);
 
         userName = props.getProperty("userGuest");
         password=props.getProperty("passwordGuest");
-        System.out.println("User Name: "+userName);
+
         user = new User(userName, password, Role.USER );
         UserRepository.addUser(user);
 
         userName = props.getProperty("userJenny");
         password=props.getProperty("passwordJenny");
-        System.out.println("User Name: "+userName);
+
         user = new User(userName, password, Role.USER );
         UserRepository.addUser(user);
+
+        String versionString = props.getProperty("version");
+        String dateString = props.getProperty("date");
+        version = new Version(versionString, dateString);
+
 
 
 

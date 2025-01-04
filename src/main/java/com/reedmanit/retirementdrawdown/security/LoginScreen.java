@@ -1,6 +1,7 @@
 package com.reedmanit.retirementdrawdown.security;
 
 import com.reedmanit.retirementdrawdown.model.UserRepository;
+import com.reedmanit.retirementdrawdown.model.Version;
 import com.reedmanit.retirementdrawdown.service.AuthService;
 import com.reedmanit.retirementdrawdown.views.MainAppView;
 import com.reedmanit.retirementdrawdown.views.ParameterFormView;
@@ -18,13 +19,15 @@ import com.vaadin.flow.theme.lumo.LumoUtility;
 public class LoginScreen extends LoginOverlay
 {
     private UserRepository userRepository;
+    private Version version;
 
     public LoginScreen(AuthService authService) {
         ;
         userRepository = new UserRepository();
+
         this.setTitle("Retirement Drawdown");
         this.setDescription("Calculator");
-        Paragraph text = new Paragraph("ReedmanIT Safe Software");
+        Paragraph text = new Paragraph("ReedmanIT Safe Software " + Version.version + " " + Version.date);
         text.addClassName(LumoUtility.TextAlignment.CENTER);
         this.getFooter().add(text);
         this.setOpened(true);

@@ -10,17 +10,27 @@ public class DrawDownParameters {
     private NumberField yearlyWithdrawals;
     private Double inflationRateValue;
     private Double percentageReturnValue;
+    private Boolean fourPercentRule;
 
     public DrawDownParameters() {
         inflationRate = new NumberField();
         startingBalance = new NumberField();
         percentageReturn = new NumberField();
         yearlyWithdrawals = new NumberField();
+        fourPercentRule = false;
     }
 
     public NumberField getInflationRate() {
 
         return inflationRate;
+    }
+
+    public void setFourPercentRule(boolean fourPercentRule) {
+        this.fourPercentRule = fourPercentRule;
+    }
+
+    public Boolean getFourPercentRule() {
+        return fourPercentRule;
     }
 
     public void setInflationRate(NumberField inflationRate) {

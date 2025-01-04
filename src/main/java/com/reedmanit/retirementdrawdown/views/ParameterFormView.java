@@ -16,13 +16,14 @@
 package com.reedmanit.retirementdrawdown.views;
 
 import com.reedmanit.retirementdrawdown.model.DrawDownParameters;
+import com.vaadin.flow.component.UI;
 import com.vaadin.flow.component.button.Button;
+import com.vaadin.flow.component.checkbox.Checkbox;
 import com.vaadin.flow.component.formlayout.FormLayout;
 import com.vaadin.flow.component.html.Span;
 import com.vaadin.flow.component.orderedlayout.HorizontalLayout;
 import com.vaadin.flow.component.textfield.NumberField;
-import com.vaadin.flow.router.Route;
-import com.vaadin.flow.router.RouterLayout;
+import com.vaadin.flow.router.*;
 
 /**
  *
@@ -34,6 +35,8 @@ public class ParameterFormView extends FormLayout implements RouterLayout {
     private NumberField startBalanceNF;  // start balance
 
     private NumberField percentageReturnNF;  // % returns
+
+    private Checkbox fourPercentRule;
 
     private NumberField yearlyWithdrawalsNF; // how much withdraw
 
@@ -73,6 +76,11 @@ public class ParameterFormView extends FormLayout implements RouterLayout {
         drawDownParameters.setPercentageReturn(percentageReturnNF);
         drawDownParameters.setYearlyWithdrawals(yearlyWithdrawalsNF);
         drawDownParameters.setInflationRate(inflationRateNF);
+        drawDownParameters.setFourPercentRule(fourPercentRule.getValue());
+
+        System.out.println(fourPercentRule.getValue());
+
+
 
     }
     
@@ -105,18 +113,23 @@ public class ParameterFormView extends FormLayout implements RouterLayout {
         getPercentageReturnNF().setSuffixComponent(new Span("%"));
         getPercentageReturnNF().setWidth("50%");
         this.add(getPercentageReturnNF());
-        
-        setYearlyWithdrawalsNF(new NumberField());
-        getYearlyWithdrawalsNF().setRequired(true);
-        getYearlyWithdrawalsNF().setLabel("Annual withdrawal");
-        getYearlyWithdrawalsNF().setMin(500.00);
-        getYearlyWithdrawalsNF().setMax(1000000.00);
-        getYearlyWithdrawalsNF().setRequiredIndicatorVisible(true);
-        getYearlyWithdrawalsNF().setErrorMessage("Invalid yearly Withdrawal");
-        getYearlyWithdrawalsNF().setClearButtonVisible(true);
-        getYearlyWithdrawalsNF().setPrefixComponent(new Span("$"));
-        getYearlyWithdrawalsNF().setHelperText("Valid values between 500 and 1000000");
-        this.add(getYearlyWithdrawalsNF());
+
+        fourPercentRule = new Checkbox();
+        fourPercentRule.setLabel("Apply Four Percent Rule");
+        this.add(fourPercentRule);
+
+        setNoFourPercentRuleWithDrawAmount();
+
+        fourPercentRule.addValueChangeListener(event -> {
+            if (fourPercentRule.getValue()) { // if checked
+                setWithFourPercentWithDrawAmount();
+
+            } else {
+                resetWithdrawAmount();
+            }
+        });
+
+
         
         setInflationRateNF(new NumberField());
         getInflationRateNF().setRequired(true);
@@ -178,4 +191,47 @@ public class ParameterFormView extends FormLayout implements RouterLayout {
     public void setInflationRateNF(NumberField inflationRateNF) {
         this.inflationRateNF = inflationRateNF;
     }
+
+    private void setWithFourPercentWithDrawAmount() {
+
+
+        NumberField withdrawAmount = new NumberField();
+        withdrawAmount.setValue(getStartBalanceNF().getValue() * 0.04);
+        var ui = UI.getCurrent();
+        ui.access(() -> {
+            System.out.println("pushed to UI");
+            this.getYearlyWithdrawalsNF().setValue(withdrawAmount.getValue());
+            this.getYearlyWithdrawalsNF().setEnabled(false);
+            ui.push();
+        });
+
+       // this.add(getYearlyWithdrawalsNF());
+
+
+    }
+
+    private void resetWithdrawAmount() {
+        var ui = UI.getCurrent();
+        ui.access(() -> {
+            getYearlyWithdrawalsNF().setEnabled(true);
+            getYearlyWithdrawalsNF().setValue(0.0);
+            ui.push();
+        });
+    }
+
+    private void setNoFourPercentRuleWithDrawAmount() {
+        setYearlyWithdrawalsNF(new NumberField());
+        getYearlyWithdrawalsNF().setRequired(true);
+        getYearlyWithdrawalsNF().setLabel("Annual withdrawal");
+        getYearlyWithdrawalsNF().setMin(500.00);
+        getYearlyWithdrawalsNF().setMax(1000000.00);
+        getYearlyWithdrawalsNF().setRequiredIndicatorVisible(true);
+        getYearlyWithdrawalsNF().setErrorMessage("Invalid yearly Withdrawal");
+        getYearlyWithdrawalsNF().setClearButtonVisible(true);
+        getYearlyWithdrawalsNF().setPrefixComponent(new Span("$"));
+        getYearlyWithdrawalsNF().setHelperText("Valid values between 500 and 1000000");
+        this.add(getYearlyWithdrawalsNF());
+    }
+
+
 }

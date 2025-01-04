@@ -15,6 +15,7 @@ import com.vaadin.flow.component.orderedlayout.HorizontalLayout;
 import com.vaadin.flow.component.orderedlayout.Scroller;
 import com.vaadin.flow.component.textfield.NumberField;
 
+import com.vaadin.flow.router.RouteParameters;
 import com.vaadin.flow.router.RouterLink;
 import com.vaadin.flow.server.VaadinSession;
 import com.vaadin.flow.theme.lumo.LumoUtility;
@@ -71,7 +72,8 @@ public class MainAppView extends AppLayout {
 
         parametersBTN.addClickListener(event -> {
             //  RouteConfiguration.forSessionScope().setRoute("admin", ParameterFormView.class);
-            UI.getCurrent().navigate(ParameterFormView.class);
+              UI.getCurrent().navigate(ParameterFormView.class);
+           // UI.getCurrent().navigate(ParameterFormView.class,"data");
         });
         logoutBTN.addClickListener(e -> {
             UI.getCurrent().getPage().setLocation("login");
