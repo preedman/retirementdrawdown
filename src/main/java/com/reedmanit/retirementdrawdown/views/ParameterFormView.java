@@ -24,12 +24,13 @@ import com.vaadin.flow.component.html.Span;
 import com.vaadin.flow.component.orderedlayout.HorizontalLayout;
 import com.vaadin.flow.component.textfield.NumberField;
 import com.vaadin.flow.router.*;
+import jakarta.annotation.security.PermitAll;
 
 /**
- *
  * @author preed
  */
-//@Route(value = "")
+@Route("form")
+@PermitAll
 public class ParameterFormView extends FormLayout implements RouterLayout {
 
     private NumberField startBalanceNF;  // start balance
@@ -49,28 +50,28 @@ public class ParameterFormView extends FormLayout implements RouterLayout {
     private DrawDownParameters drawDownParameters;
 
     public ParameterFormView() {
-        
+
         setUpParameterView();
         drawDownParameters = new DrawDownParameters();
 
 
         saveButton.addClickListener(event -> {
-                 fillParameters();
-                 getUI().ifPresent(ui -> ui.navigate(MainAppView.class).ifPresent(
+            fillParameters();
+            getUI().ifPresent(ui -> ui.navigate(MainAppView.class).ifPresent(
 
-                app -> app.saveData(drawDownParameters)));});
+                    app -> app.saveData(drawDownParameters)));
+        });
 
-        // saveButton.addClickListener(event -> {getUI().ifPresent(ui -> ui.navigate(MainAppView.class).ifPresent(app -> app.saveData(drawDownParameters)));});
 
-        cancelButton.addClickListener(event -> {getUI().ifPresent(ui -> ui.navigate(MainAppView.class).ifPresent(
+        cancelButton.addClickListener(event -> {
+            getUI().ifPresent(ui -> ui.navigate(MainAppView.class).ifPresent(
 
-                app -> app.cancel()));});
+                    app -> app.cancel()));
+        });
 
-        
-      //  this.getStyle().set("border", "1px solid");
-      //  this.setJustifyContentMode(JustifyContentMode.CENTER);
-        
+
     }
+
     private void fillParameters() {
         drawDownParameters.setStartingBalance(startBalanceNF);
         drawDownParameters.setPercentageReturn(percentageReturnNF);
@@ -81,11 +82,10 @@ public class ParameterFormView extends FormLayout implements RouterLayout {
         System.out.println(fourPercentRule.getValue());
 
 
-
     }
-    
+
     private void setUpParameterView() {
-        
+
         setStartBalanceNF(new NumberField());
         getStartBalanceNF().setRequired(true);
         getStartBalanceNF().setMin(10000.00);
@@ -99,7 +99,7 @@ public class ParameterFormView extends FormLayout implements RouterLayout {
         getStartBalanceNF().setPrefixComponent(new Span("$"));
 
         this.add(getStartBalanceNF());
-        
+
         setPercentageReturnNF(new NumberField());
         getPercentageReturnNF().setRequired(true);
         getPercentageReturnNF().setMin(1.00);
@@ -130,7 +130,6 @@ public class ParameterFormView extends FormLayout implements RouterLayout {
         });
 
 
-        
         setInflationRateNF(new NumberField());
         getInflationRateNF().setRequired(true);
         getInflationRateNF().setLabel("Annual % inflation rate");
@@ -149,15 +148,13 @@ public class ParameterFormView extends FormLayout implements RouterLayout {
         cancelButton.setWidth("50%");
 
         this.add(saveButton, cancelButton);
-       // this.add(cancelButton);
+
 
         this.setResponsiveSteps(
                 // Use one column by default
                 new ResponsiveStep("0", 1));
 
-        
-        
-        
+
     }
 
     public NumberField getStartBalanceNF() {
@@ -199,13 +196,13 @@ public class ParameterFormView extends FormLayout implements RouterLayout {
         withdrawAmount.setValue(getStartBalanceNF().getValue() * 0.04);
         var ui = UI.getCurrent();
         ui.access(() -> {
-            System.out.println("pushed to UI");
+
             this.getYearlyWithdrawalsNF().setValue(withdrawAmount.getValue());
             this.getYearlyWithdrawalsNF().setEnabled(false);
             ui.push();
         });
 
-       // this.add(getYearlyWithdrawalsNF());
+
 
 
     }

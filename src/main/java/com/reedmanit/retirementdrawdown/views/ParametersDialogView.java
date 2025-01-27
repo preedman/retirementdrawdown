@@ -9,6 +9,9 @@ import com.vaadin.flow.component.orderedlayout.FlexComponent;
 import com.vaadin.flow.component.orderedlayout.VerticalLayout;
 import com.vaadin.flow.component.textfield.NumberField;
 import com.vaadin.flow.component.textfield.TextField;
+import com.vaadin.flow.router.Route;
+import jakarta.annotation.security.PermitAll;
+
 
 public class ParametersDialogView extends Dialog {
 
@@ -45,7 +48,7 @@ public class ParametersDialogView extends Dialog {
         fieldLayout.getStyle().set("width", "300px").set("max-width", "100%");
 
         add(fieldLayout);
-        setHeaderTitle("Parameters");
+        setHeaderTitle("Drawdown Parameters");
         Button closeButton = new Button(new Icon("lumo", "cross"),
                 (e) -> this.close());
         closeButton.addThemeVariants(ButtonVariant.LUMO_TERTIARY);

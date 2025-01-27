@@ -1,5 +1,4 @@
 import '@vaadin/polymer-legacy-adapter/style-modules.js';
-import '@vaadin/login/theme/lumo/vaadin-login-overlay.js';
 import '@vaadin/vertical-layout/theme/lumo/vaadin-vertical-layout.js';
 import '@vaadin/app-layout/theme/lumo/vaadin-app-layout.js';
 import '@vaadin/form-layout/theme/lumo/vaadin-form-layout.js';
@@ -55,6 +54,7 @@ import '@vaadin/icons/vaadin-iconset.js';
 import '@vaadin/list-box/theme/lumo/vaadin-list-box.js';
 import '@vaadin/item/theme/lumo/vaadin-item.js';
 import '@vaadin/login/theme/lumo/vaadin-login-form.js';
+import '@vaadin/login/theme/lumo/vaadin-login-overlay.js';
 import '@vaadin/map/theme/lumo/vaadin-map.js';
 import 'Frontend/generated/jar-resources/vaadin-map/mapConnector.js';
 import 'Frontend/generated/jar-resources/menubarConnector.js';
