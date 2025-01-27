@@ -10,6 +10,8 @@ import com.vaadin.flow.component.button.ButtonVariant;
 import com.vaadin.flow.component.details.Details;
 import com.vaadin.flow.component.html.Span;
 import com.vaadin.flow.component.html.UnorderedList;
+import com.vaadin.flow.component.icon.Icon;
+import com.vaadin.flow.component.icon.VaadinIcon;
 import com.vaadin.flow.component.notification.Notification;
 import com.vaadin.flow.component.notification.NotificationVariant;
 import com.vaadin.flow.component.orderedlayout.HorizontalLayout;
@@ -144,12 +146,19 @@ public class MainAppView extends AppLayout {
     private HorizontalLayout getNavigation() {
         navigation = new HorizontalLayout();
 
-        parametersBTN = new Button("Enter Drawdown");
-        showParametersBTN = new Button("Show Drawdown");
-        logoutBTN = new Button("Logout");
+        parametersBTN = new Button(new Icon(VaadinIcon.PLUS));
+        parametersBTN.addThemeVariants(ButtonVariant.LUMO_ICON);
+        parametersBTN.setTooltipText("Enter Drawdown Parameters");
+
+        showParametersBTN = new Button(new Icon(VaadinIcon.INFO));
+        showParametersBTN.addThemeVariants(ButtonVariant.LUMO_ICON);
+        showParametersBTN.setTooltipText("Show Drawdown Parameters");
 
 
-        logoutBTN.addThemeVariants(ButtonVariant.LUMO_SMALL);
+
+        logoutBTN = new Button(new Icon(VaadinIcon.EXIT));
+        logoutBTN.addThemeVariants(ButtonVariant.LUMO_ICON);
+        logoutBTN.setTooltipText("Logout of App");
 
         parametersBTN.setSizeUndefined();
         showParametersBTN.setSizeUndefined();
