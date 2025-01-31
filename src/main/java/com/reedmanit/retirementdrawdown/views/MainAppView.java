@@ -1,6 +1,7 @@
 package com.reedmanit.retirementdrawdown.views;
 
 import com.reedmanit.retirementdrawdown.model.DrawDownParameters;
+import com.reedmanit.retirementdrawdown.service.DownloadDataService;
 import com.reedmanit.retirementdrawdown.service.DrawDownService;
 import com.reedmanit.retirementdrawdown.service.SecurityService;
 import com.vaadin.flow.component.UI;
@@ -9,7 +10,6 @@ import com.vaadin.flow.component.button.Button;
 import com.vaadin.flow.component.button.ButtonVariant;
 import com.vaadin.flow.component.details.Details;
 import com.vaadin.flow.component.html.Span;
-import com.vaadin.flow.component.html.UnorderedList;
 import com.vaadin.flow.component.icon.Icon;
 import com.vaadin.flow.component.icon.VaadinIcon;
 import com.vaadin.flow.component.notification.Notification;
@@ -19,9 +19,9 @@ import com.vaadin.flow.component.orderedlayout.Scroller;
 import com.vaadin.flow.component.textfield.NumberField;
 
 import com.vaadin.flow.router.*;
-import com.vaadin.flow.server.VaadinSession;
-import com.vaadin.flow.theme.lumo.LumoUtility;
 import jakarta.annotation.security.PermitAll;
+
+import java.io.FileNotFoundException;
 
 @Route("")
 @PermitAll
@@ -29,6 +29,7 @@ public class MainAppView extends AppLayout {
     private Button parametersBTN;
     private Button logoutBTN;
     private Button showParametersBTN;
+    private Button downloadBTN;
 
     private RouterLink parametersLink;
     private RouterLink showParametersLink;
@@ -42,12 +43,17 @@ public class MainAppView extends AppLayout {
     private Span startBalanceInfo;
     private ParametersDialogView parametersDialogView;
     private final SecurityService securityService;
+    private DownloadDataService downloadDataService;
+
 
 
     public MainAppView(SecurityService securityService) {
 
 
         this.securityService = securityService;
+
+
+
         initaliseParameters();
 
         HorizontalLayout navigation = getNavigation();
@@ -63,7 +69,7 @@ public class MainAppView extends AppLayout {
 
 
         gridView = new DrawdownGridView();
-        gridView.setTheGrid(service.getListOfDrawDowns());
+        gridView.setTheGrid(service.calculateListOfDrawDowns());
 
 
         this.setContent(gridView.getTheGrid());
@@ -80,6 +86,20 @@ public class MainAppView extends AppLayout {
             UI.getCurrent().navigate(ParameterFormView.class);
 
         });
+
+        downloadBTN.addClickListener(event -> {
+            try {
+
+                downloadDataService = new DownloadDataService(service.getListOfDrawDowns());
+                downloadDataService.download();
+                Notification notification = Notification.show("Download completed!");
+                notification.addThemeVariants(NotificationVariant.LUMO_SUCCESS);
+            } catch (FileNotFoundException e) {
+                throw new RuntimeException(e);
+            }
+
+        });
+
         logoutBTN.addClickListener(e -> {
             UI.getCurrent().getPage().setLocation("login");
             securityService.logout();
@@ -98,9 +118,11 @@ public class MainAppView extends AppLayout {
         service = new DrawDownService(theParameters);
 
 
-        gridView.setTheGrid(service.getListOfDrawDowns());
+        gridView.setTheGrid(service.calculateListOfDrawDowns());
 
         showNotificationYears(service.getNumberOfYears());
+
+
 
         this.setContent(gridView.getTheGrid());
     }
@@ -111,7 +133,7 @@ public class MainAppView extends AppLayout {
 
 
         gridView = new DrawdownGridView();
-        gridView.setTheGrid(service.getListOfDrawDowns());
+        gridView.setTheGrid(service.calculateListOfDrawDowns());
 
 
         this.setContent(gridView.getTheGrid());
@@ -160,15 +182,20 @@ public class MainAppView extends AppLayout {
         logoutBTN.addThemeVariants(ButtonVariant.LUMO_ICON);
         logoutBTN.setTooltipText("Logout of App");
 
+        downloadBTN = new Button(new Icon(VaadinIcon.DOWNLOAD));
+        downloadBTN.addThemeVariants(ButtonVariant.LUMO_ICON);
+        downloadBTN.setTooltipText("Download");
+
         parametersBTN.setSizeUndefined();
         showParametersBTN.setSizeUndefined();
         logoutBTN.setSizeUndefined();
+        downloadBTN.setSizeUndefined();
 
         Scroller scroller = new Scroller();
         scroller.setScrollDirection(Scroller.ScrollDirection.HORIZONTAL);
 
 
-        navigation.add(parametersBTN, showParametersBTN, logoutBTN);
+        navigation.add(parametersBTN, showParametersBTN, downloadBTN,logoutBTN);
 
 
         scroller.setContent(navigation);

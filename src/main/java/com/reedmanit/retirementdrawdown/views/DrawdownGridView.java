@@ -8,6 +8,7 @@ import com.vaadin.flow.data.renderer.NumberRenderer;
 
 import java.text.NumberFormat;
 import java.util.List;
+import java.util.stream.Stream;
 
 public class DrawdownGridView {
 
@@ -38,5 +39,9 @@ public class DrawdownGridView {
 
     public void setTheGrid(List<AnnualDrawdown> theGrid) {
         this.theGrid.setItems(theGrid);
+
+    }
+    public Stream<AnnualDrawdown> getGridStream() {
+        return this.theGrid.getGenericDataView().getItems();
     }
 }

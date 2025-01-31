@@ -9,4 +9,5 @@ com\reedmanit\retirementdrawdown\model\DrawDownParameters.class
 com\reedmanit\retirementdrawdown\service\SecurityService.class
 com\reedmanit\retirementdrawdown\views\ParameterFormView.class
 com\reedmanit\retirementdrawdown\DrawnDownCalculator.class
+com\reedmanit\retirementdrawdown\service\DownloadDataService.class
 com\reedmanit\retirementdrawdown\service\DrawDownService.class

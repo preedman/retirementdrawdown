@@ -1,9 +1,7 @@
 package com.reedmanit.retirementdrawdown.service;
 
 import com.reedmanit.retirementdrawdown.model.DrawDownParameters;
-import com.vaadin.flow.component.textfield.IntegerField;
 import com.vaadin.flow.component.textfield.NumberField;
-import org.checkerframework.checker.units.qual.N;
 import com.reedmanit.retirementdrawdown.model.AnnualDrawdown;
 import org.junit.jupiter.api.AfterEach;
 import org.junit.jupiter.api.AfterAll;
@@ -12,7 +10,6 @@ import org.junit.jupiter.api.BeforeAll;
 import org.junit.jupiter.api.Test;
 
 import java.util.ArrayList;
-import java.util.Iterator;
 import java.util.List;
 
 import static org.junit.jupiter.api.Assertions.*;
@@ -90,7 +87,7 @@ public class DrawDownServiceTest {
 
         DrawDownService service = new DrawDownService(drawDownParameters);
 
-        List<AnnualDrawdown> listOfDrawDowns = service.getListOfDrawDowns();
+        List<AnnualDrawdown> listOfDrawDowns = service.calculateListOfDrawDowns();
 
         assertEquals(14, listOfDrawDowns.size());
         assertEquals(listOfTestAnnualDrawdown.get(0), listOfDrawDowns.get(0));

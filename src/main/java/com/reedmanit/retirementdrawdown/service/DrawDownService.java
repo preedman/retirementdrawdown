@@ -18,7 +18,7 @@ public class DrawDownService {
         listOfDrawDowns = new ArrayList<AnnualDrawdown>();
     }
 
-    public List<AnnualDrawdown> getListOfDrawDowns() {
+    public List<AnnualDrawdown> calculateListOfDrawDowns() {
 
         AnnualDrawdown annualDrawdown = new AnnualDrawdown();
         annualDrawdown.setOpeningBalance(parameters.getStartingBalance().getValue());
@@ -49,11 +49,16 @@ public class DrawDownService {
               previousIncome = annualDrawdown.getIncome();
               previousYear = annualDrawdown.getYear();
          }
+
         return listOfDrawDowns;
 
 
 
 
+    }
+
+    public List<AnnualDrawdown> getListOfDrawDowns() {
+        return listOfDrawDowns;
     }
 
     public Integer getNumberOfYears() {
