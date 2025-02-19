@@ -52,6 +52,8 @@ public class MainAppView extends AppLayout {
 
         this.securityService = securityService;
 
+        //System.out.println(System.getenv('USER'));
+
 
 
         initaliseParameters();
@@ -185,6 +187,7 @@ public class MainAppView extends AppLayout {
         downloadBTN = new Button(new Icon(VaadinIcon.DOWNLOAD));
         downloadBTN.addThemeVariants(ButtonVariant.LUMO_ICON);
         downloadBTN.setTooltipText("Download");
+        downloadBTN.setEnabled(false);  // not turned on at the moment - future feature
 
         parametersBTN.setSizeUndefined();
         showParametersBTN.setSizeUndefined();
