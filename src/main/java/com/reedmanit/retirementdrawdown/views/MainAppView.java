@@ -9,6 +9,7 @@ import com.vaadin.flow.component.applayout.AppLayout;
 import com.vaadin.flow.component.button.Button;
 import com.vaadin.flow.component.button.ButtonVariant;
 import com.vaadin.flow.component.details.Details;
+import com.vaadin.flow.component.html.Anchor;
 import com.vaadin.flow.component.html.Span;
 import com.vaadin.flow.component.icon.Icon;
 import com.vaadin.flow.component.icon.VaadinIcon;
@@ -30,6 +31,8 @@ public class MainAppView extends AppLayout {
     private Button logoutBTN;
     private Button showParametersBTN;
     private Button downloadBTN;
+    private Anchor helpAnchor;
+    private Button helpBTN;
 
     private RouterLink parametersLink;
     private RouterLink showParametersLink;
@@ -189,6 +192,13 @@ public class MainAppView extends AppLayout {
         downloadBTN.setTooltipText("Download");
         downloadBTN.setEnabled(false);  // not turned on at the moment - future feature
 
+        helpBTN = new Button(new Icon(VaadinIcon.QUESTION));
+        helpBTN.addThemeVariants(ButtonVariant.LUMO_ICON);
+        helpBTN.setTooltipText("Help");
+
+        helpAnchor = new Anchor("https://github.com/preedman/retirementdrawdown/wiki",
+                helpBTN);
+
         parametersBTN.setSizeUndefined();
         showParametersBTN.setSizeUndefined();
         logoutBTN.setSizeUndefined();
@@ -198,7 +208,7 @@ public class MainAppView extends AppLayout {
         scroller.setScrollDirection(Scroller.ScrollDirection.HORIZONTAL);
 
 
-        navigation.add(parametersBTN, showParametersBTN, downloadBTN,logoutBTN);
+        navigation.add(parametersBTN, showParametersBTN, downloadBTN,helpAnchor,logoutBTN);
 
 
         scroller.setContent(navigation);
