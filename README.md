@@ -73,24 +73,6 @@ Note: Vaadin’s Maven plugin will fetch the needed Node/Vite toolchain automati
 3. Open the app: http://localhost:8080/
 4. You will be redirected to the login page at `/login`.
 
-### Default login
-Default in‑memory user is defined in `SecurityConfig`:
-- Username: `guest`
-- Password: set via a BCrypt hash in code. If `guest/guest` does not work in your environment, open `SecurityConfig.java` to verify or change the password (instructions below).
-
-To change the default user/password, update `users()` in `SecurityConfig`:
-```java
-@Bean
-public UserDetailsService users() {
-    UserDetails guest = User.builder()
-        .username("guest")
-        .password("{bcrypt}<your_bcrypt_hash>")
-        .roles("USER")
-        .build();
-    return new InMemoryUserDetailsManager(guest);
-}
-```
-Tip: Generate a BCrypt hash with Spring Security’s `BCryptPasswordEncoder` or any trusted generator.
 
 
 ## Usage
